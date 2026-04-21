@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Progressive Lash Pro — a Watford studio for luxury lashes and the career training that builds lash artists." />
+<title>Progressive Lash Pro — Luxury Lashes & Lash Training, Watford</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+:root{
+  --ink:      #0E2A23;     /* Forest ink — new black          */
+  --forest:  #1F3A2E;     /* Forest                          */
+  --moss:    #2E5243;     /* Deeper mid-tone                 */
+  --sage:    #94A98F;     /* Micro-accent                    */
+  --ivory:   #F6F2EB;     /* Page background — warm white    */
+  --paper:   #FBF9F4;     /* Slightly lighter ivory          */
+  --blush:   #E8D4C9;     /* Single accent                   */
+  --silver:  #E8ECEE;     /* Animation accent                */
+  --silver-warm: #C9CED1;
+  --body:    #1A1A1A;
+  --mute:    #6B6B6B;
+  --rule:    #D7D2C7;
+
+  --serif: "Fraunces", "Canela Deck", "Playfair Display", Georgia, serif;
+  --sans:  "Inter", "Söhne", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+
+  --ease-editorial: cubic-bezier(.77, 0, .175, 1);
+  --ease-out:       cubic-bezier(.2, .7, .3, 1);
+
+  --gutter: clamp(24px, 5vw, 96px);
+  --section-pad: clamp(88px, 12vw, 180px);
+  --radius: 2px;
+}
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+body{
+  background:var(--ivory);
+  color:var(--body);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.65;
+  font-weight:400;
+  overflow-x:hidden;
+  cursor:none;            /* custom cursor */
+}
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; cursor:none; background:none; border:0; color:inherit; }
+::selection{ background:var(--ink); color:var(--ivory); }
+
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
+h1,h2,h3,h4{
+  font-family:var(--serif);
+  font-weight:400;
+  color:var(--ink);
+  letter-spacing:-.015em;
+}
+h1{ font-size:clamp(40px, 7.6vw, 104px); line-height:1.02; font-variation-settings:"opsz" 144; }
+h2{ font-size:clamp(32px, 4.8vw, 64px); line-height:1.08; font-variation-settings:"opsz" 60; }
+h3{ font-size:clamp(22px, 2.4vw, 32px); line-height:1.2; }
+.italic{ font-style:italic; }
+
+.eyebrow{
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:500;
+  color:var(--forest);
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+}
+.eyebrow::before{
+  content:"";
+  width:28px;
+  height:1px;
+  background:var(--forest);
+  opacity:.6;
+}
+.eyebrow--on-dark{ color:var(--blush); }
+.eyebrow--on-dark::before{ background:var(--blush); opacity:.7; }
+
+.lede{ font-size:clamp(18px,1.4vw,22px); line-height:1.55; color:var(--body); max-width:58ch; }
+
+/* ============================================================
+   4. CUSTOM CURSOR
+   ============================================================ */
+.cursor, .cursor-ring{
+  position:fixed; top:0; left:0;
+  pointer-events:none;
+  z-index:9999;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+}
+.cursor{ width:6px; height:6px; background:var(--ivory); transition:transform .15s var(--ease-out); }
+.cursor-ring{ width:36px; height:36px; border:1px solid var(--ivory); transition:transform .25s var(--ease-out), width .25s, height .25s; opacity:.6; }
+.cursor.hover{ transform:translate(-50%,-50%) scale(.2); }
+.cursor-ring.hover{ width:56px; height:56px; opacity:1; }
+@media(hover:none){ body{cursor:auto} button{cursor:pointer} .cursor, .cursor-ring{display:none} }
+
+/* ============================================================
+   5. HEADER & NAVIGATION
+   ============================================================ */
+.site-header{
+  position:fixed; top:0; left:0; right:0;
+  padding:24px var(--gutter);
+  display:flex; align-items:center; justify-content:space-between;
+  z-index:100;
+  transition:padding .4s var(--ease-out), background .4s var(--ease-out), backdrop-filter .4s;
+  mix-blend-mode:normal;
+}
+.site-header.is-scrolled{
+  padding:14px var(--gutter);
+  background:rgba(246, 242, 235, .88);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(14,42,35,.08);
+}
+.site-header.is-over-dark:not(.is-scrolled){ color:var(--ivory); }
+.site-header.is-over-dark:not(.is-scrolled) .logo-mark{ color:var(--ivory); }
+.site-header.is-over-dark:not(.is-scrolled) .nav a{ color:var(--ivory); }
+.site-header.is-over-dark:not(.is-scrolled) .btn-ghost{ color:var(--ivory); border-color:rgba(246,242,235,.45); }
+
+.logo{
+  display:flex; flex-direction:column; line-height:1;
+  font-family:var(--serif); color:var(--ink);
+  transition:color .4s;
+}
+.logo-meta{ font-family:var(--sans); font-size:9px; letter-spacing:.32em; font-weight:500; opacity:.75; margin-bottom:4px; }
+.logo-mark{ font-size:22px; font-weight:400; letter-spacing:.04em; font-variation-settings:"opsz" 60; transition:color .4s; }
+.logo-mark em{ font-style:italic; color:var(--moss); }
+
+.nav{
+  display:flex; align-items:center; gap:38px;
+  font-family:var(--sans); font-size:13px; font-weight:400;
+  letter-spacing:.02em;
+}
+.nav a{ position:relative; color:var(--ink); transition:color .3s; padding:6px 0; }
+.nav a::after{
+  content:""; position:absolute; left:0; bottom:0;
+  width:100%; height:1px;
+  background:currentColor;
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .5s var(--ease-editorial);
+}
+.nav a:hover::after{ transform:scaleX(1); }
+
+.header-actions{ display:flex; align-items:center; gap:12px; }
+.btn{
+  font-family:var(--sans); font-size:12px; font-weight:500;
+  text-transform:uppercase; letter-spacing:.18em;
+  padding:14px 26px;
+  border:1px solid transparent;
+  border-radius:999px;
+  position:relative; overflow:hidden;
+  display:inline-flex; align-items:center; gap:10px;
+  transition:color .45s var(--ease-out);
+}
+.btn .arrow{ display:inline-block; transition:transform .45s var(--ease-out); }
+.btn:hover .arrow{ transform:translateX(4px); }
+.btn-primary{ background:var(--ink); color:var(--ivory); }
+.btn-primary::before{
+  content:""; position:absolute; inset:0;
+  background:var(--moss);
+  transform:translateY(100%); transition:transform .5s var(--ease-editorial);
+  z-index:0;
+}
+.btn-primary:hover::before{ transform:translateY(0); }
+.btn-primary span{ position:relative; z-index:1; }
+.btn-ghost{ color:var(--ink); border-color:rgba(14,42,35,.3); background:transparent; }
+.btn-ghost:hover{ background:var(--ink); color:var(--ivory); border-color:var(--ink); }
+.btn-ivory{ background:var(--ivory); color:var(--ink); }
+.btn-ivory:hover{ background:var(--blush); }
+
+.menu-btn{ display:none; width:40px; height:40px; align-items:center; justify-content:center; }
+.menu-btn .bar{ display:block; width:22px; height:1px; background:currentColor; transition:transform .3s; }
+.menu-btn .bar + .bar{ margin-top:5px; }
+
+@media (max-width: 900px){
+  .nav, .header-actions .btn-ghost{ display:none; }
+  .menu-btn{ display:inline-flex; }
+  .site-header{ padding:18px var(--gutter); }
+}
+
+/* ============================================================
+   6. HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  height:100vh; min-height:680px;
+  display:flex; align-items:flex-end;
+  color:var(--ivory);
+  overflow:hidden;
+  background:var(--ink);
+}
+.hero-bg{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(120deg, rgba(14,42,35,.82) 0%, rgba(14,42,35,.55) 45%, rgba(14,42,35,.2) 100%),
+    radial-gradient(ellipse at 70% 60%, #4a6b5d 0%, #223830 45%, #0E2A23 100%);
+  background-size:cover; background-position:center;
+  transform-origin:center;
+  animation:kenBurns 22s ease-out forwards;
+}
+@keyframes kenBurns{
+  from{ transform:scale(1); }
+  to{ transform:scale(1.06); }
+}
+.hero-grain{
+  position:absolute; inset:0; opacity:.14; pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.5'/></svg>");
+  mix-blend-mode:overlay;
+}
+
+.hero-inner{
+  position:relative;
+  padding:0 var(--gutter) clamp(80px,9vw,160px);
+  width:100%;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:clamp(32px,4vw,72px);
+}
+.hero-stars{
+  font-family:var(--sans); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+  display:flex; align-items:center; gap:10px;
+  opacity:0; animation:fadeIn .8s var(--ease-out) .15s forwards;
+}
+.hero-stars .stars{ letter-spacing:.08em; color:var(--silver); }
+.hero-title{
+  color:var(--ivory);
+  font-weight:300;
+  max-width:18ch;
+}
+.hero-title .word{
+  display:inline-block; overflow:hidden; vertical-align:bottom;
+}
+.hero-title .word span{
+  display:inline-block;
+  transform:translateY(110%);
+  animation:rise .9s var(--ease-editorial) forwards;
+}
+.hero-title .italic span{ font-style:italic; color:var(--blush); }
+@keyframes rise{ to{ transform:translateY(0); } }
+
+/* Glowing silver dot + underline on hero */
+.hero-flourish{
+  position:relative; height:3px; max-width:540px; margin-top:28px;
+  opacity:0; animation:fadeIn .4s .3s forwards;
+}
+.hero-flourish .line{
+  position:absolute; left:0; top:50%; transform:translateY(-50%);
+  height:1px; width:0;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(232,236,238,.2) 8%,
+    rgba(232,236,238,.75) 50%,
+    rgba(232,236,238,.2) 92%,
+    transparent 100%);
+  animation:drawLine 2.6s var(--ease-editorial) 1.1s forwards;
+}
+.hero-flourish .dot{
+  position:absolute; left:0; top:50%;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--silver);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  box-shadow:
+    0 0 10px 2px rgba(232,236,238,.9),
+    0 0 24px 6px rgba(232,236,238,.45),
+    0 0 48px 10px rgba(232,236,238,.18);
+  animation:travelDot 2.6s var(--ease-editorial) 1.1s forwards;
+}
+.hero-flourish .trail{
+  position:absolute; top:50%; left:0;
+  width:0; height:2px; transform:translateY(-50%);
+  background:linear-gradient(90deg, rgba(232,236,238,0) 0%, rgba(232,236,238,.9) 95%, rgba(232,236,238,1) 100%);
+  filter:blur(.5px);
+  animation:drawTrail 2.6s var(--ease-editorial) 1.1s forwards;
+  opacity:.85;
+}
+@keyframes drawLine{ to{ width:100% } }
+@keyframes drawTrail{ 0%{width:0; opacity:.9} 100%{width:100%; opacity:.15} }
+@keyframes travelDot{
+  0%   { left:0%;  opacity:0; }
+  6%   { opacity:1; }
+  94%  { opacity:1; }
+  100% { left:100%; opacity:0; }
+}
+
+.hero-sub{
+  max-width:46ch; color:rgba(246,242,235,.85); font-size:clamp(16px,1.15vw,19px);
+  opacity:0; animation:fadeInUp .7s var(--ease-out) 1.4s forwards;
+}
+.hero-ctas{
+  display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;
+  opacity:0; animation:fadeInUp .7s var(--ease-out) 1.6s forwards;
+}
+@keyframes fadeIn{ to{opacity:1} }
+@keyframes fadeInUp{ from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)} }
+
+.hero-corner-meta{
+  position:absolute; bottom:clamp(28px,3vw,48px); right:var(--gutter);
+  display:flex; align-items:center; gap:14px;
+  font-family:var(--sans); font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:rgba(246,242,235,.7);
+  opacity:0; animation:fadeIn .7s var(--ease-out) 1.8s forwards;
+}
+.hero-corner-meta .vline{ width:1px; height:48px; background:rgba(246,242,235,.3); }
+
+.scroll-cue{
+  position:absolute; bottom:clamp(28px,3vw,48px); left:var(--gutter);
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--sans); font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:rgba(246,242,235,.75);
+  opacity:0; animation:fadeIn .7s var(--ease-out) 2.0s forwards;
+}
+.scroll-cue .sc-line{ width:40px; height:1px; background:currentColor; transform-origin:left; animation:pulseLine 2.4s infinite var(--ease-out); }
+@keyframes pulseLine{ 0%,100%{transform:scaleX(.4); opacity:.6} 50%{transform:scaleX(1); opacity:1} }
+
+/* ============================================================
+   7. MARQUEE / TRUST STRIP
+   ============================================================ */
+.marquee{
+  background:var(--paper);
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  padding:22px 0; overflow:hidden;
+}
+.marquee-track{
+  display:flex; gap:72px;
+  white-space:nowrap;
+  font-family:var(--serif); font-style:italic; font-size:clamp(20px,2vw,28px);
+  color:var(--forest);
+  animation:scroll-x 42s linear infinite;
+}
+.marquee-track span{ display:inline-flex; align-items:center; gap:72px; }
+.marquee-track .dot{ width:5px; height:5px; background:var(--sage); border-radius:50%; display:inline-block; }
+@keyframes scroll-x{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ============================================================
+   8. SECTION CHAPTER HEADERS
+   ============================================================ */
+.section{
+  padding:var(--section-pad) var(--gutter);
+  position:relative;
+}
+.section--ivory{ background:var(--ivory); }
+.section--paper{ background:var(--paper); }
+.section--ink{ background:var(--ink); color:var(--ivory); }
+.section--ink h2{ color:var(--ivory); }
+.section--ink .lede{ color:rgba(246,242,235,.82); }
+
+.chapter{
+  display:grid; grid-template-columns: 1fr 2fr; gap:var(--gutter);
+  align-items:end;
+  margin-bottom:clamp(56px,7vw,96px);
+}
+.chapter-no{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(48px,8vw,120px); line-height:.9;
+  color:var(--sage); opacity:.65;
+  font-weight:300;
+}
+.section--ink .chapter-no{ color:var(--blush); opacity:.4; }
+.chapter-head h2{ max-width:16ch; }
+.chapter-head .lede{ margin-top:20px; }
+
+@media (max-width:720px){
+  .chapter{ grid-template-columns:1fr; align-items:start; gap:16px; }
+  .chapter-no{ font-size:72px; }
+}
+
+/* ============================================================
+   9. TREATMENTS GRID
+   ============================================================ */
+.treatments{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:clamp(32px,3vw,56px) clamp(24px,2vw,40px);
+}
+.treatment{
+  position:relative;
+  display:flex; flex-direction:column;
+  cursor:none;
+}
+.treatment-media{
+  position:relative; overflow:hidden;
+  aspect-ratio:4/5;
+  background:linear-gradient(135deg, #5a6b60 0%, #2e4237 100%);
+}
+.treatment-media::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(14,42,35,0) 40%, rgba(14,42,35,.6) 100%);
+  z-index:1; transition:opacity .6s;
+}
+.treatment-media img, .treatment-media .photo-placeholder{
+  width:100%; height:100%; object-fit:cover;
+  transition:transform 1.2s var(--ease-editorial);
+}
+.treatment:hover .treatment-media img,
+.treatment:hover .treatment-media .photo-placeholder{ transform:scale(1.06); }
+.photo-placeholder{
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-style:italic; font-size:14px;
+  color:rgba(246,242,235,.35);
+  letter-spacing:.1em;
+  background-size:cover; background-position:center;
+}
+.photo-placeholder--1{ background:linear-gradient(160deg,#36514a,#162a23); }
+.photo-placeholder--2{ background:linear-gradient(160deg,#43574d,#1b3029); }
+.photo-placeholder--3{ background:linear-gradient(160deg,#3f594d,#132621); }
+.photo-placeholder--4{ background:linear-gradient(160deg,#4d665a,#1e352d); }
+.photo-placeholder--5{ background:linear-gradient(160deg,#46594d,#172828); }
+.photo-placeholder--6{ background:linear-gradient(160deg,#3c564a,#142520); }
+
+.treatment-meta{
+  padding-top:22px;
+  display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+}
+.treatment-price{
+  font-family:var(--sans); font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--mute);
+}
+.treatment-tag{
+  font-family:var(--sans); font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--forest);
+}
+.treatment-title{
+  font-family:var(--serif); font-size:clamp(22px,1.8vw,30px);
+  font-weight:400; color:var(--ink);
+  margin-top:6px; line-height:1.15;
+}
+.treatment-sub{ font-size:15px; color:var(--mute); margin-top:4px; }
+.treatment-link{
+  margin-top:18px; display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink);
+  position:relative; padding-bottom:8px;
+  align-self:flex-start;
+}
+.treatment-link::after{
+  content:""; position:absolute; bottom:0; left:0;
+  width:100%; height:1px; background:currentColor;
+  transform:scaleX(1); transform-origin:right;
+  transition:transform .6s var(--ease-editorial);
+}
+.treatment:hover .treatment-link::after{
+  transform:scaleX(0);
+  animation:reDraw .9s var(--ease-editorial) .1s forwards;
+}
+@keyframes reDraw{
+  0%{transform:scaleX(0); transform-origin:left}
+  100%{transform:scaleX(1); transform-origin:left}
+}
+.treatment-link .arrow{ transition:transform .5s var(--ease-editorial); }
+.treatment:hover .treatment-link .arrow{ transform:translateX(6px); }
+
+@media (max-width:960px){ .treatments{ grid-template-columns:repeat(2, 1fr); } }
+@media (max-width:600px){ .treatments{ grid-template-columns:1fr; gap:48px; } }
+
+/* ============================================================
+   10. TRAINING PANEL
+   ============================================================ */
+.training{
+  display:grid; grid-template-columns:1.1fr 1fr;
+  gap:var(--gutter); align-items:stretch;
+  margin-top:clamp(40px,5vw,72px);
+}
+.training-media{
+  aspect-ratio:4/5;
+  background:linear-gradient(150deg,#3c5649 0%, #0E2A23 100%);
+  position:relative; overflow:hidden;
+}
+.training-media .photo-placeholder{ color:rgba(232,212,201,.3); }
+.training-content{ padding:clamp(12px,2vw,32px) 0; display:flex; flex-direction:column; justify-content:center; }
+.training-content h2{ margin-top:8px; max-width:14ch; }
+.training-content .lede{ margin-top:24px; }
+.training-stats{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+  margin:48px 0;
+  border-top:1px solid rgba(246,242,235,.15);
+  border-bottom:1px solid rgba(246,242,235,.15);
+  padding:32px 0;
+}
+.training-stats .stat-num{ font-family:var(--serif); font-size:clamp(36px,4vw,56px); color:var(--blush); line-height:1; font-style:italic; }
+.training-stats .stat-lbl{ font-family:var(--sans); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(246,242,235,.7); margin-top:10px; max-width:16ch; }
+.training-list{ list-style:none; display:flex; flex-direction:column; gap:14px; margin-top:8px; }
+.training-list li{ display:flex; gap:14px; align-items:flex-start; }
+.training-list .check{
+  width:18px; height:18px; border-radius:50%;
+  border:1px solid var(--blush); flex:0 0 18px;
+  position:relative; margin-top:4px;
+}
+.training-list .check::after{
+  content:""; position:absolute; left:4px; top:7px;
+  width:9px; height:4px;
+  border-left:1px solid var(--blush); border-bottom:1px solid var(--blush);
+  transform:rotate(-45deg);
+}
+.training-list li strong{ font-weight:500; color:var(--ivory); display:block; font-size:16px; }
+.training-list li span{ color:rgba(246,242,235,.7); font-size:14px; line-height:1.55; }
+
+@media (max-width:880px){ .training{ grid-template-columns:1fr; } .training-media{ aspect-ratio:4/3; } }
+
+/* ============================================================
+   11. SHOP STRIP
+   ============================================================ */
+.shop{
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:var(--gutter); align-items:center;
+  margin-top:clamp(40px,5vw,72px);
+}
+.shop-media{ aspect-ratio:1/1; position:relative; overflow:hidden; background:linear-gradient(160deg,#F2EEE5, #E5DFD3); }
+.shop-media .photo-placeholder{ color:rgba(14,42,35,.3); font-style:italic; }
+.shop-content h2{ margin-top:8px; max-width:12ch; }
+.shop-content .lede{ margin-top:22px; max-width:42ch; }
+.shop-list{ margin:30px 0 36px; display:flex; flex-direction:column; gap:12px; list-style:none; }
+.shop-list li{ display:flex; gap:14px; align-items:flex-start; font-size:15px; color:var(--body); }
+.shop-list .spark{ color:var(--sage); font-family:var(--serif); font-style:italic; font-size:20px; line-height:1; }
+@media (max-width:880px){ .shop{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   12. MEET SIÂN
+   ============================================================ */
+.about{
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:var(--gutter); align-items:center;
+  margin-top:clamp(40px,5vw,72px);
+}
+.about-media{
+  aspect-ratio:4/5;
+  background:linear-gradient(165deg, #d4beaf 0%, #8b7363 100%);
+  position:relative; overflow:hidden;
+}
+.about-media .photo-placeholder{ color:rgba(14,42,35,.35); font-style:italic; }
+.about-content h2{ margin-top:8px; font-style:italic; max-width:14ch; }
+.about-quote{
+  margin-top:28px; padding-top:28px;
+  border-top:1px solid var(--rule);
+  font-family:var(--serif); font-style:italic; font-size:clamp(20px,1.6vw,26px);
+  line-height:1.45; color:var(--ink); max-width:46ch;
+}
+.about-quote::before{ content:"“"; font-size:64px; line-height:0; vertical-align:-24px; color:var(--sage); margin-right:6px; }
+.about-signature{
+  margin-top:24px;
+  font-family:var(--serif); font-style:italic; font-size:28px; color:var(--moss);
+  letter-spacing:-.01em;
+}
+.about-ctas{ margin-top:36px; display:flex; gap:14px; flex-wrap:wrap; }
+@media (max-width:880px){ .about{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   13. TESTIMONIALS
+   ============================================================ */
+.testimonials{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(24px,2vw,40px);
+  margin-top:clamp(40px,5vw,72px);
+}
+.testimonial{
+  padding:40px 32px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  position:relative;
+}
+.testimonial .stars{ color:var(--moss); letter-spacing:.12em; font-size:14px; }
+.testimonial-quote{
+  font-family:var(--serif); font-size:clamp(18px,1.4vw,22px);
+  line-height:1.45; margin:18px 0 28px; color:var(--ink);
+}
+.testimonial-by{ font-size:13px; color:var(--mute); letter-spacing:.06em; }
+.testimonial-by strong{ color:var(--ink); font-weight:500; display:block; font-family:var(--sans); }
+@media (max-width:880px){ .testimonials{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   14. CTA BANNER
+   ============================================================ */
+.cta-banner{
+  margin:0;
+  padding:clamp(80px,10vw,140px) var(--gutter);
+  background:var(--ink); color:var(--ivory);
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.cta-banner h2{ font-family:var(--serif); font-style:italic; max-width:16ch; margin:16px auto 0; color:var(--ivory); }
+.cta-banner .lede{ margin:24px auto 40px; color:rgba(246,242,235,.82); }
+.cta-banner .btn-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.cta-banner::before{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse at top right, rgba(148,169,143,.18) 0%, transparent 60%);
+}
+
+/* ============================================================
+   15. FOOTER
+   ============================================================ */
+.site-footer{
+  background:var(--ink); color:rgba(246,242,235,.85);
+  padding:clamp(80px,10vw,140px) var(--gutter) 40px;
+}
+.footer-top{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:48px; margin-bottom:72px; }
+.footer-brand h3{ color:var(--ivory); font-family:var(--serif); font-size:32px; font-weight:400; margin-bottom:16px; }
+.footer-brand p{ font-size:15px; line-height:1.7; max-width:34ch; color:rgba(246,242,235,.7); }
+.footer-col h4{ font-family:var(--sans); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--blush); font-weight:500; margin-bottom:20px; }
+.footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+.footer-col a, .footer-col p{ font-size:15px; color:rgba(246,242,235,.8); transition:color .3s; }
+.footer-col a:hover{ color:var(--ivory); }
+.hours-row{ display:flex; justify-content:space-between; gap:24px; font-size:14px; color:rgba(246,242,235,.8); }
+.hours-row span:last-child{ color:rgba(246,242,235,.55); }
+
+.newsletter{ margin-top:24px; }
+.newsletter-field{
+  display:flex; align-items:center;
+  border-bottom:1px solid rgba(246,242,235,.3);
+  padding:8px 0; transition:border-color .3s;
+}
+.newsletter-field:focus-within{ border-color:var(--blush); }
+.newsletter input{
+  flex:1; background:transparent; border:0; color:var(--ivory);
+  font-family:var(--sans); font-size:14px; outline:none; padding:6px 0;
+}
+.newsletter input::placeholder{ color:rgba(246,242,235,.5); }
+.newsletter button{
+  font-family:var(--sans); font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--blush); transition:color .3s;
+}
+.newsletter button:hover{ color:var(--ivory); }
+
+.footer-bottom{
+  border-top:1px solid rgba(246,242,235,.12);
+  padding-top:28px;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:12px; color:rgba(246,242,235,.55);
+  letter-spacing:.05em;
+}
+.footer-bottom .legal{ display:flex; gap:28px; }
+.footer-bottom a:hover{ color:var(--ivory); }
+
+@media (max-width:880px){ .footer-top{ grid-template-columns:1fr 1fr; gap:40px 32px; } }
+@media (max-width:560px){ .footer-top{ grid-template-columns:1fr; } .footer-bottom{ flex-direction:column; gap:16px; text-align:center; } }
+
+/* ============================================================
+   16. SCROLL REVEALS
+   ============================================================ */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .9s var(--ease-editorial), transform .9s var(--ease-editorial); }
+.reveal.in-view{ opacity:1; transform:translateY(0); }
+.reveal-stagger > *{ opacity:0; transform:translateY(24px); transition:opacity .9s var(--ease-editorial), transform .9s var(--ease-editorial); }
+.reveal-stagger.in-view > *{ opacity:1; transform:translateY(0); }
+.reveal-stagger.in-view > *:nth-child(1){ transition-delay:0s; }
+.reveal-stagger.in-view > *:nth-child(2){ transition-delay:.08s; }
+.reveal-stagger.in-view > *:nth-child(3){ transition-delay:.16s; }
+.reveal-stagger.in-view > *:nth-child(4){ transition-delay:.24s; }
+.reveal-stagger.in-view > *:nth-child(5){ transition-delay:.32s; }
+.reveal-stagger.in-view > *:nth-child(6){ transition-delay:.40s; }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+  .hero-title .word span{ transform:none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header is-over-dark" id="header">
+  <a href="#" class="logo" data-cursor="hover">
+    <span class="logo-meta">Artistry &nbsp;·&nbsp; Education</span>
+    <span class="logo-mark">Progressive <em>Lash</em> Pro</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#treatments" data-cursor="hover">Treatments</a>
+    <a href="#training" data-cursor="hover">Training</a>
+    <a href="#shop" data-cursor="hover">Shop</a>
+    <a href="#about" data-cursor="hover">The Studio</a>
+    <a href="#journal" data-cursor="hover">Journal</a>
+    <a href="#contact" data-cursor="hover">Contact</a>
+  </nav>
+  <div class="header-actions">
+    <a href="#guide" class="btn btn-ghost" data-cursor="hover"><span>Course Guide</span></a>
+    <a href="#book" class="btn btn-primary" data-cursor="hover"><span>Book</span><span class="arrow">→</span></a>
+    <button class="menu-btn" aria-label="Menu" data-cursor="hover">
+      <span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <span class="hero-stars">
+      <span class="stars">★★★★★</span>
+      <span>5.0 · 20+ Google Reviews</span>
+    </span>
+
+    <h1 class="hero-title" id="hero-title">
+      <span class="word"><span>Lashes</span></span>
+      <span class="word"><span>crafted.</span></span>
+      <br />
+      <span class="word italic"><span>Lash&nbsp;artists</span></span>
+      <span class="word italic"><span>made.</span></span>
+    </h1>
+
+    <!-- glowing silver dot underline -->
+    <div class="hero-flourish" aria-hidden="true">
+      <span class="trail"></span>
+      <span class="line"></span>
+      <span class="dot"></span>
+    </div>
+
+    <p class="hero-sub">
+      A Watford studio for luxury lash treatments — and the career-making training behind them.
+      Small-group classes, ongoing mentorship, a standard you can feel the moment you sit in the chair.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#book" class="btn btn-primary" data-cursor="hover"><span>Book an appointment</span><span class="arrow">→</span></a>
+      <a href="#training" class="btn btn-ghost" data-cursor="hover"><span>Explore training</span></a>
+    </div>
+  </div>
+
+  <div class="hero-corner-meta">
+    <span>Watford · Hertfordshire</span>
+    <span class="vline"></span>
+    <span>Est. 2019</span>
+  </div>
+  <div class="scroll-cue">
+    <span class="sc-line"></span>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     MARQUEE / TRUST BAR
+     ============================================================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>ABT Certified <span class="dot"></span> VTCT Accredited <span class="dot"></span> Insured with Policybee <span class="dot"></span> 5.0 Google Rating <span class="dot"></span> Featured in Watford Observer <span class="dot"></span> Over 200 Artists Trained <span class="dot"></span></span>
+    <span>ABT Certified <span class="dot"></span> VTCT Accredited <span class="dot"></span> Insured with Policybee <span class="dot"></span> 5.0 Google Rating <span class="dot"></span> Featured in Watford Observer <span class="dot"></span> Over 200 Artists Trained <span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- ============================================================
+     01 — TREATMENTS
+     ============================================================ -->
+<section class="section section--ivory" id="treatments">
+  <div class="chapter reveal">
+    <div class="chapter-no">01</div>
+    <div class="chapter-head">
+      <span class="eyebrow">The Treatments</span>
+      <h2 style="margin-top:20px;">Lashes, lifts, brows — <span class="italic">meticulously applied.</span></h2>
+      <p class="lede">From a natural enhancement to a set of hand-built Russian volume fans, every treatment is tailored to your eye shape, lifestyle, and the exact finish you&rsquo;re after.</p>
+    </div>
+  </div>
+
+  <div class="treatments reveal-stagger">
+
+    <a href="#" class="treatment" data-cursor="hover">
+      <div class="treatment-media">
+        <div class="photo-placeholder photo-placeholder--1">[ Photo · Classic Lashes ]</div>
+      </div>
+      <div class="treatment-meta">
+        <span class="treatment-tag">Signature</span>
+        <span class="treatment-price">From £70</span>
+      </div>
+      <h3 class="treatment-title">Classic Lashes</h3>
+      <p class="treatment-sub">One extension per natural lash — subtle, elegant, every day.</p>
+      <span class="treatment-link">Discover <span class="arrow">→</span></span>
+    </a>
+
+    <a href="#" class="treatment" data-cursor="hover">
+      <div class="treatment-media">
+        <div class="photo-placeholder photo-placeholder--2">[ Photo · Hybrid Lashes ]</div>
+      </div>
+      <div class="treatment-meta">
+        <span class="treatment-tag">Most loved</span>
+        <span class="treatment-price">From £80</span>
+      </div>
+      <h3 class="treatment-title">Hybrid Lashes</h3>
+      <p class="treatment-sub">A balance of classic and volume — natural depth, styled intention.</p>
+      <span class="treatment-link">Discover <span class="arrow">→</span></span>
+    </a>
+
+    <a href="#" class="treatment" data-cursor="hover">
+      <div class="treatment-media">
+        <div class="photo-placeholder photo-placeholder--3">[ Photo · Russian Volume ]</div>
+      </div>
+      <div class="treatment-meta">
+        <span class="treatment-tag">Dramatic</span>
+        <span class="treatment-price">From £85</span>
+      </div>
+      <h3 class="treatment-title">Russian Volume</h3>
+      <p class="treatment-sub">Hand-made fans for density, drama, and unmistakable presence.</p>
+      <span class="treatment-link">Discover <span class="arrow">→</span></span>
+    </a>
+
+    <a href="#" class="treatment" data-cursor="hover">
+      <div class="treatment-media">
+        <div class="photo-placeholder photo-placeholder--4">[ Photo · Lash Lift &amp; Tint ]</div>
+      </div>
+      <div class="treatment-meta">
+        <span class="treatment-tag">Low maintenance</span>
+        <span class="treatment-price">From £45</span>
+      </div>
+      <h3 class="treatment-title">Lash Lift &amp; Tint</h3>
+      <p class="treatment-sub">Six weeks of effortless curl and colour, on your own lashes.</p>
+      <span class="treatment-link">Discover <span class="arrow">→</span></span>
+    </a>
+
+    <a href="#" class="treatment" data-cursor="hover">
+      <div class="treatment-media">
+        <div class="photo-placeholder photo-placeholder--5">[ Photo · Brow Lamination ]</div>
+      </div>
+      <div class="treatment-meta">
+        <span class="treatment-tag">Brows</span>
+        <span class="treatment-price">From £45</span>
+      </div>
+      <h3 class="treatment-title">Brow Lamination &amp; Tint</h3>
+      <p class="treatment-sub">Lifted, groomed, and softly tinted — the editorial brow.</p>
+      <span class="treatment-link">Discover <span class="arrow">→</span></span>
+    </a>
+
+    <a href="#" class="treatment" data-cursor="hover">
+      <div class="treatment-media">
+        <div class="photo-placeholder photo-placeholder--6">[ Photo · Lash Removal ]</div>
+      </div>
+      <div class="treatment-meta">
+        <span class="treatment-tag">Kind goodbye</span>
+        <span class="treatment-price">From £15</span>
+      </div>
+      <h3 class="treatment-title">Lash Removal</h3>
+      <p class="treatment-sub">A gentle, oil-free remover that protects the natural lashes.</p>
+      <span class="treatment-link">Discover <span class="arrow">→</span></span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     02 — TRAINING (full-bleed ink panel)
+     ============================================================ -->
+<section class="section section--ink" id="training">
+  <div class="chapter reveal">
+    <div class="chapter-no">02</div>
+    <div class="chapter-head">
+      <span class="eyebrow eyebrow--on-dark">The Academy</span>
+      <h2 style="margin-top:20px;">A career in lashes &mdash; <span class="italic">built properly.</span></h2>
+      <p class="lede">Small classes, live demonstrations, and mentorship beyond the certificate. Whether you&rsquo;re starting out or levelling up to Russian volume, you&rsquo;ll leave ready to earn.</p>
+    </div>
+  </div>
+
+  <div class="training reveal">
+    <div class="training-media">
+      <div class="photo-placeholder">[ Photo · Siân teaching ]</div>
+    </div>
+    <div class="training-content">
+      <span class="eyebrow eyebrow--on-dark">Training courses</span>
+      <h2>What you&rsquo;ll learn.</h2>
+
+      <div class="training-stats">
+        <div>
+          <div class="stat-num">200<span style="font-size:.5em">+</span></div>
+          <div class="stat-lbl">Artists trained since 2019</div>
+        </div>
+        <div>
+          <div class="stat-num">£2.4k</div>
+          <div class="stat-lbl">Avg. earned in first 90 days</div>
+        </div>
+        <div>
+          <div class="stat-num">1:4</div>
+          <div class="stat-lbl">Teacher-to-student max ratio</div>
+        </div>
+      </div>
+
+      <ul class="training-list">
+        <li>
+          <span class="check" aria-hidden="true"></span>
+          <span><strong>Beginner to advanced</strong>Classic, Hybrid and Russian Volume, each taught as a standalone course or as a progression.</span>
+        </li>
+        <li>
+          <span class="check" aria-hidden="true"></span>
+          <span><strong>Live models, not heads</strong>You finish every course having worked on real clients with full aftercare guidance.</span>
+        </li>
+        <li>
+          <span class="check" aria-hidden="true"></span>
+          <span><strong>Ongoing mentorship</strong>12 months of Q&amp;A, photo feedback, and business support after graduation.</span>
+        </li>
+      </ul>
+
+      <div style="margin-top:40px; display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="#book-training" class="btn btn-ivory" data-cursor="hover"><span>Explore courses</span><span class="arrow">→</span></a>
+        <a href="#guide" class="btn btn-ghost" style="color:var(--ivory); border-color:rgba(246,242,235,.4);" data-cursor="hover"><span>Download course guide</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     03 — SHOP
+     ============================================================ -->
+<section class="section section--paper" id="shop">
+  <div class="chapter reveal">
+    <div class="chapter-no">03</div>
+    <div class="chapter-head">
+      <span class="eyebrow">The Shop</span>
+      <h2 style="margin-top:20px;">The same tools <span class="italic">we use in the studio.</span></h2>
+      <p class="lede">Premade fans, mixed-length trays, tweezers, adhesives &mdash; a small, edited range of professional-grade supplies trusted by Progressive Lash Pro students.</p>
+    </div>
+  </div>
+
+  <div class="shop reveal">
+    <div class="shop-media">
+      <div class="photo-placeholder">[ Photo · Premade fans flat-lay ]</div>
+    </div>
+    <div class="shop-content">
+      <span class="eyebrow">Fresh in</span>
+      <h2>Premade fans, <span class="italic">perfected.</span></h2>
+      <p class="lede">Sharp, clean, consistent fans in 3D, 8D and 10D — made to sit flush against the lash line and stretch your application time further.</p>
+      <ul class="shop-list">
+        <li><span class="spark">✦</span><span>Top-of-the-range premade fans in 3D, 8D and 10D densities</span></li>
+        <li><span class="spark">✦</span><span>Mixed-length trays for maximum styling flexibility</span></li>
+        <li><span class="spark">✦</span><span>Professional-grade tweezers, adhesive and remover</span></li>
+      </ul>
+      <a href="#shop-all" class="btn btn-primary" data-cursor="hover"><span>Shop supplies</span><span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 — MEET SIÂN
+     ============================================================ -->
+<section class="section section--ivory" id="about">
+  <div class="chapter reveal">
+    <div class="chapter-no">04</div>
+    <div class="chapter-head">
+      <span class="eyebrow">The Studio</span>
+      <h2 style="margin-top:20px;">Meet <span class="italic">Siân Gibbs.</span></h2>
+    </div>
+  </div>
+
+  <div class="about reveal">
+    <div class="about-media">
+      <div class="photo-placeholder">[ Photo · Editorial portrait ]</div>
+    </div>
+    <div class="about-content">
+      <span class="eyebrow">Founder &amp; Lead Educator</span>
+      <h2>Lashes are craft — and craft is taught.</h2>
+      <blockquote class="about-quote">
+        I opened Progressive Lash Pro because the industry was teaching technique but not standards. We train slowly, apply precisely, and only ever send a student out when their work would make us proud to wear it.
+      </blockquote>
+      <div class="about-signature">Siân</div>
+      <div class="about-ctas">
+        <a href="#contact" class="btn btn-primary" data-cursor="hover"><span>Get in touch</span><span class="arrow">→</span></a>
+        <a href="#training" class="btn btn-ghost" data-cursor="hover"><span>Learn about training</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section section--paper">
+  <div class="chapter reveal">
+    <div class="chapter-no">05</div>
+    <div class="chapter-head">
+      <span class="eyebrow">The Reviews</span>
+      <h2 style="margin-top:20px;">What clients and students <span class="italic">say.</span></h2>
+    </div>
+  </div>
+
+  <div class="testimonials reveal-stagger">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-quote">The only lashes I&rsquo;ve ever had that looked like mine, but better. Siân is meticulous &mdash; I won&rsquo;t go anywhere else.</p>
+      <div class="testimonial-by"><strong>Amelia R.</strong>Client · Hybrid Lashes</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-quote">I did the Russian volume course and fully booked my salon inside three weeks. The mentorship afterwards is what makes it work.</p>
+      <div class="testimonial-by"><strong>Jessica L.</strong>Graduate · 2024 Cohort</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-quote">You can tell you&rsquo;re with someone who actually teaches. Calm, patient, and ridiculously detailed on technique.</p>
+      <div class="testimonial-by"><strong>Priya S.</strong>Graduate · Classic Course</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA BANNER
+     ============================================================ -->
+<section class="cta-banner" id="book">
+  <span class="eyebrow eyebrow--on-dark">Ready when you are</span>
+  <h2>A chair in the studio, or a seat in class.</h2>
+  <p class="lede">Two ways in — both start with a conversation.</p>
+  <div class="btn-row">
+    <a href="#book-appt" class="btn btn-ivory" data-cursor="hover"><span>Book an appointment</span><span class="arrow">→</span></a>
+    <a href="#book-course" class="btn btn-ghost" style="color:var(--ivory); border-color:rgba(246,242,235,.4);" data-cursor="hover"><span>Enquire about training</span></a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer" id="contact">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Progressive <em style="font-style:italic; color:var(--blush);">Lash</em> Pro</h3>
+      <p>Luxury lashes and career-making training from a studio in Watford, Hertfordshire.</p>
+      <div class="newsletter">
+        <label class="eyebrow eyebrow--on-dark" style="display:block; margin-bottom:10px;">The Lash Letter</label>
+        <div class="newsletter-field">
+          <input type="email" placeholder="Your email" aria-label="Email address" />
+          <button type="button" data-cursor="hover">Subscribe →</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#treatments" data-cursor="hover">Treatments</a></li>
+        <li><a href="#training" data-cursor="hover">Training</a></li>
+        <li><a href="#shop" data-cursor="hover">Shop</a></li>
+        <li><a href="#about" data-cursor="hover">The Studio</a></li>
+        <li><a href="#journal" data-cursor="hover">Journal</a></li>
+        <li><a href="#contact" data-cursor="hover">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <ul>
+        <li><p>Sandown Road<br />Watford WD24 7UB</p></li>
+        <li><a href="tel:07301051585" data-cursor="hover">07301 051 585</a></li>
+        <li><a href="mailto:info@progressivelashpro.com" data-cursor="hover">info@progressivelashpro.com</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Opening</h4>
+      <ul>
+        <li class="hours-row"><span>Mon &ndash; Wed</span><span>7am &ndash; 7pm</span></li>
+        <li class="hours-row"><span>Thursday</span><span>10am &ndash; 8pm</span></li>
+        <li class="hours-row"><span>Friday</span><span>7am &ndash; 4pm</span></li>
+        <li class="hours-row"><span>Saturday</span><span>9am &ndash; 1pm</span></li>
+        <li class="hours-row"><span>Sunday</span><span>Closed</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© <span id="year">2026</span> Progressive Lash Pro. All rights reserved.</span>
+    <div class="legal">
+      <a href="#" data-cursor="hover">Terms</a>
+      <a href="#" data-cursor="hover">Privacy</a>
+      <a href="#" data-cursor="hover">Instagram</a>
+      <a href="#" data-cursor="hover">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JS
+     ============================================================ -->
+<script>
+/* -----------------------------------------------------------
+   Custom cursor
+   ----------------------------------------------------------- */
+(() => {
+  const dot  = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || window.matchMedia('(hover: none)').matches) return;
+
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.top = my + 'px';
+    dot.style.left = mx + 'px';
+  });
+
+  (function loop(){
+    rx += (mx - rx) * .18;
+    ry += (my - ry) * .18;
+    ring.style.top  = ry + 'px';
+    ring.style.left = rx + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('[data-cursor="hover"]').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+})();
+
+/* -----------------------------------------------------------
+   Header scroll states (background + colour over dark hero)
+   ----------------------------------------------------------- */
+(() => {
+  const header = document.getElementById('header');
+  const hero   = document.querySelector('.hero');
+  const update = () => {
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 24);
+    if (hero){
+      const heroBottom = hero.offsetTop + hero.offsetHeight - 120;
+      header.classList.toggle('is-over-dark', y < heroBottom);
+    }
+  };
+  update();
+  window.addEventListener('scroll', update, { passive:true });
+})();
+
+/* -----------------------------------------------------------
+   Hero title staggered reveal
+   ----------------------------------------------------------- */
+(() => {
+  const words = document.querySelectorAll('#hero-title .word span');
+  words.forEach((w, i) => {
+    w.style.animationDelay = (0.25 + i * 0.12) + 's';
+  });
+})();
+
+/* -----------------------------------------------------------
+   Scroll reveals
+   ----------------------------------------------------------- */
+(() => {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+})();
+
+/* -----------------------------------------------------------
+   Year
+   ----------------------------------------------------------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
